@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     #3rd party
     'rest_framework',
     # My apps
-    'metrics'
+    'metrics',
+    'pc'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
