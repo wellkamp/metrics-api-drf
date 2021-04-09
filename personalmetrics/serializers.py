@@ -15,8 +15,8 @@ class MemoryMetricSerializer(serializers.ModelSerializer):
 
 
 class PersonalComputerSerializer(serializers.ModelSerializer):
-    gpu_temps = GPUMetricSerializer(read_only=True, many=True)
-    memory_temps = MemoryMetricSerializer(read_only=True, many=True)
+    #gpu_temps = GPUMetricSerializer(read_only=True, many=True)
+    # memory_temps = MemoryMetricSerializer(read_only=True, many=True)
     class Meta:
         model = PersonalComputer
         fields = '__all__'
