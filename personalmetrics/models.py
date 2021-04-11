@@ -24,10 +24,10 @@ class GPUMetrics(models.Model):
         on_delete=models.CASCADE,
         related_name='gpu_temps'
     )
-    gpu_core = models.CharField(max_length=50, null=False)
-    gpu_memory = models.CharField(max_length=50, null=False)
-    gpu_vrm_core = models.CharField(max_length=50, null=False)
-    gpu_hot_spot = models.CharField(max_length=50, null=False)
+    gpu_core = models.FloatField(null=False)
+    gpu_memory = models.FloatField(null=False)
+    gpu_vrm_core = models.FloatField(null=False)
+    gpu_hot_spot = models.FloatField(null=False)
     created_at = models.DateField()
     hour_at = models.TimeField()
 
@@ -45,8 +45,8 @@ class MemoryMetrics(models.Model):
         on_delete=models.CASCADE,
         related_name='memory_temps'
     )
-    used = models.CharField(max_length=50, null=False)
-    available = models.CharField(max_length=50, null=False)
+    used = models.FloatField(null=False)
+    available = models.FloatField(null=False)
     created_at = models.DateField()
     hour_at = models.TimeField()
 
