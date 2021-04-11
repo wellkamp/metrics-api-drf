@@ -2,6 +2,7 @@ from django.db import models
 
 
 class PersonalComputer(models.Model):
+    # models.FloatField()
     mainboard = models.CharField(max_length=50, null=False)
     gpu = models.CharField(max_length=50, null=False)
     processador = models.CharField(max_length=50, null=False)
