@@ -1,30 +1,59 @@
+from django.contrib.auth.models import User
+from django.db.models import Min, Avg
 from rest_framework import serializers
 from .models import GPUMetrics, MemoryMetrics, PersonalComputer
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['username']
+
+
 class ListPersonalComputerSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = PersonalComputer
         fields = '__all__'
 
 
+class PersonalComputerSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = PersonalComputer
+        fields = ['user']
+
+
 class GPUMetricSerializer(serializers.ModelSerializer):
-    pc = ListPersonalComputerSerializer(read_only=True)
+    pc = PersonalComputerSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = GPUMetrics
-        fields = "__all__"
+        fields = '__all__'
 
 
 class MemoryMetricSerializer(serializers.ModelSerializer):
-    pc = ListPersonalComputerSerializer(read_only=True)
+    pc = PersonalComputerSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = MemoryMetrics
         fields = "__all__"
 
 
-class PersonalComputerSerializer(serializers.ModelSerializer):
-    gpu_temps = GPUMetricSerializer(read_only=True, many=True)
-    memory_temps = MemoryMetricSerializer(read_only=True, many=True)
+class MinMaxValueGPUSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = PersonalComputer
-        fields = '__all__'
+        model = GPUMetrics
+        fields = ['gpu_core', 'created_at', 'hour_at']
+
+
+class MemoryMetricsValuesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MemoryMetrics
+        fields = ['used', 'created_at', 'hour_at']

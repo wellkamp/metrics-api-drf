@@ -1,8 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
 class PersonalComputer(models.Model):
-    # models.FloatField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default='')
     mainboard = models.CharField(max_length=50, null=False)
     gpu = models.CharField(max_length=50, null=False)
     processador = models.CharField(max_length=50, null=False)
